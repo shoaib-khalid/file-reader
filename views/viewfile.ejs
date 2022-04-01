@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Script element sourcing TinyMCE -->
+        <script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+        <!-- Script element sourcing the TinyMCE configuration -->
+        <script type="application/javascript" src= "/tinymce/tinymce.js"></script>
+        <script type="application/javascript" src= "/microlight/microlight.js"></script>
+
+        <script type="application/javascript" src="/monaco-editor/min/vs/loader.js"></script>
+
+        <!-- <script type="text/javascript" src="/monaco-editor/min/vs/editor.main.nls.js"></script> -->
+        <!-- <script type="text/javascript" src="/monaco-editor/min/vs/editor.main.js"></script> -->
+        <!-- <script type="text/javascript" src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/loader.js"></script> -->
+        <script>
+            // tinymce.init({
+            //   selector: '#default',
+            //   skin_url: 'http://localhost:3000/tinymce/skins/ui/oxide',
+            //   elementpath: false,
+            // });
+            tinymce.init({
+                selector: '#default',
+                elementpath: false,
+                skin_url: '/tinymce/skins/ui/oxide',
+            });
+        </script>
+    
+        <title>File Listing - Edit</title>
+        <style type="text/css">
+            .microlight {
+                font-family: monospace;
+                white-space: pre;
+                background-color: #263238;
+                color: #AABBC3;
+                padding: 15px;
+                text-align: left;
+                overflow-x: auto;
+                box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+                border-radius: 0.2em;
+            }
+            body {
+                background: #dedede;
+                font-family: 'Raleway', 'Arial', sans-serif;
+                font-weight: 400;
+                margin: 0;
+            }
+            .card {
+                background: #fff;
+                border-radius: 0.2em;
+                box-sizing: border-box;
+                box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+                position: relative;
+                padding: 30px;
+                width: calc(100% - 30px);
+                max-width: 620px;
+                margin: 15px auto 0 auto;
+            }
+            .card:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .card h1 {
+                text-align: center;
+                font-weight: 400;
+                margin: 0 0 25px 0;
+            }
+            .microlight {
+                font-family: monospace;
+                white-space: pre;
+                background-color: #263238;
+                color: #AABBC3;
+                padding: 15px;
+                text-align: left;
+                overflow-x: auto;
+                box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+                border-radius: 0.2em;
+            }
+            .microlight:not(:last-child) {
+                margin-bottom: 15px;
+            }
+            .microlight span[data_microlight_type="not-formatted"] {
+                color: #B2CCD6;
+            }
+            .microlight span[data_microlight_type="keywords"] {
+                color: #F1E655;
+            }
+            .microlight span[data_microlight_type="punctuation"] {
+                color: #d9f5dd;
+            }
+            .microlight span[data_microlight_type="strings-regex"] {
+                color: #C3E88D;
+            }
+            .microlight span[data_microlight_type="comments"] {
+                color: #49656f;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>View file</h1>
+
+        <!-- <img src="/public/brian-hughes.jpg"> -->
+
+        <!-- use tinymce -->
+        <!-- <form id="myForm" method="post" action="<%= url.replace('file-listing/edit','file-listing/update') %>">
+            <textarea id="default" name="form_data"><%= displayData %></textarea>
+            <button name="submit">Save</button>
+        </form> -->
+
+        <!-- textarea -->
+        <!-- <form id="myForm" method="post" action="<%= url.replace('file-listing/edit','file-listing/update') %>">
+            <textarea id="form_data" name="form_data" rows="30" cols="168"><%= displayData %></textarea>
+            <br>
+            <button name="submit">Save</button>
+        </form> -->
+        
+        <!-- ================== to read route path -->
+        <!-- <p><%= url.replace('file-listing/edit','file-listing/update') %></p> -->
+
+        <!-- ================MICROLIGHT==================== -->
+        <!-- <div class=microlight>
+            <textarea id="form_data1" name="form_data1" rows="30" cols="168"><%= displayData %></textarea>
+        </div>
+        -->
+
+        <!-- ================monoca==================== -->
+        <div id="monacoelement" style="height:400px;width:800px;">
+        </div>
+        <form id="myForm" method="post" action="<%= url.replace(editstring,updatestring) %>">
+            <input type="hidden" name="form_data" id="textcode" value="">
+            <br>
+            <button onclick="save()">Save</button>
+        </form>
+    </body>
+</html>
+
+<!-- <script src="/node_modules/wysiwyg-editor-node-sdk/lib/image.js"></script>
+<script src="/node_modules/wysiwyg-editor-node-sdk/lib/utils/disk.management.js"></script> -->
+<script>
+    var displaycode = <%-JSON.stringify(displayData)%>;
+    require.config({ paths: { 'vs': '/monaco-editor/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+        window.editor = monaco.editor.create(document.getElementById('monacoelement'),                 
+        {
+            value: displaycode,
+            language: 'javascript',
+            theme: 'vs-dark'
+        });
+    });
+    
+    function save() {
+       // get the value of the data
+       var value = window.editor.getValue();
+       document.getElementById('textcode').value = value;
+    }
+</script>
+
+
+

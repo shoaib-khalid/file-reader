@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Reader</title>
+</head>
+<body>
+    <!-- <h1><%= header %></h1> -->
+    <h1>File Listing</h1>
+    <table>
+        <tr>
+            <th>View File </th>
+            <th>Edit File </th>
+        </tr>
+        <tr>
+            <% for(let i = 0; i < fileList.length; i++) { %>
+            <td>
+                <a href="<%= fileList[i] %>"><%= fileList[i] %></a>
+            </td>
+            <td>
+                <a href="<%= fileList[i].replace(routename,navigateEdit) %>">Edit </a>
+            </td>
+        </tr>    
+        <% } %>
+    </table>
+</body>
+</html>
+
+
+
