@@ -31,9 +31,6 @@ app.use('/', defaultRouter);
 app.use('/'+process.env.ROUTE_NAME, fileListRouter);
 //  app.use('/file-listing', fileListRouter);
 
-/* New Route to for public file */
-app.use('/public', express.static(path.join(__dirname, 'public')));
-
 /* New Route to the TinyMCE Node module */
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
