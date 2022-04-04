@@ -13,6 +13,7 @@ var fileListRouter = require('./routes/filelists.routes');
 var defaultRouter = require('./routes/default.routes');
 var homeRouter = require('./routes/home.routes');
 
+const authControllers = require('./controllers/authenticate.controllers');
 
 var FroalaEditor = require('wysiwyg-editor-node-sdk/lib/froalaEditor');
 
@@ -27,6 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // ===================== List of Route
 // app.get('/home', (req, res) => {res.send('Home')})
+app.use(authControllers.authentication)
+
 app.use('/', defaultRouter);
 app.use('/'+process.env.ROUTE_NAME, fileListRouter);
 //  app.use('/file-listing', fileListRouter);
