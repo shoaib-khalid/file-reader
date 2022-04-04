@@ -18,20 +18,19 @@ const editFiles = (req,res) =>{
     var pathDirectoryFile = reqOriUrl.replace('/'+dynamicroute+'/edit', '');
     var parentfolder = process.env.FILE_DIRECTORY;
     var pathfile = parentfolder+pathDirectoryFile;
-
     fs.readFile(pathfile, function(err, data) {
         if (err) throw err // Fail if the file can't be read.
-            if(mime.getType(pathDirectoryFile) !== 'image/jpeg'||mime.getType(pathDirectoryFile) !=='image/png'){
+            if(mime.getType(pathfile) !== 'image/jpeg'&& mime.getType(pathfile) !=='image/png'){
                 var routerName =process.env.ROUTE_NAME;            
                 var stringEditPath =routerName+'/edit';
                 var stringUpdatePath =routerName+'/update';
 
-                res.render("viewfile",{displayData:data.toString(),url:fullUrl,editstring:stringEditPath,updatestring:stringUpdatePath});
+                res.render("viewfile",{displayData:data.toString(),url:fullUrl,editstring:stringEditPath,updatestring:stringUpdatePath,message:''});
                 // res.render("viewfile",{ header: displayHeader,fileList:arrFiles}); 
             }
             else {
                 //text/html , application/javascript, image/jpeg, image/png
-                // res.send("Cannot edit image");
+                 res.send("Cannot edit image");
             }
     })
 
@@ -81,7 +80,11 @@ const updateFile = (req, res) =>{
 
     fs.writeFile(pathfile, data, (err) => {
     if (err) console.error(err);
-        return res.end("Successfully Written to File.");
+        var routerName =process.env.ROUTE_NAME;            
+        var stringEditPath =routerName+'/edit';
+        var stringUpdatePath =routerName+'/update';
+        res.render("viewfile",{displayData:data.toString(),url:fullUrl,editstring:stringEditPath,updatestring:stringUpdatePath,message:'Successfully Written to File.'});
+
     });
 }
 

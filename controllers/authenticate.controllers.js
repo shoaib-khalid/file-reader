@@ -4,7 +4,6 @@ dotenv.config();
 
 const authentication =(req,res,next)=>{
     var authheader = req.headers.authorization;
-    console.log(req.headers);
  
     if (!authheader) {
         var err = new Error('You are not authenticated!');

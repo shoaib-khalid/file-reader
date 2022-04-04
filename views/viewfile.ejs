@@ -135,12 +135,23 @@
             <br>
             <button onclick="save()">Save</button>
         </form>
+       <div id="displayMessage">
+
+           <% if (message) { %>
+               <div><%= message %></div>
+           <% } %>
+       </div>
     </body>
 </html>
 
 <!-- <script src="/node_modules/wysiwyg-editor-node-sdk/lib/image.js"></script>
 <script src="/node_modules/wysiwyg-editor-node-sdk/lib/utils/disk.management.js"></script> -->
 <script>
+    function getDisplayMessage() {
+        document.getElementById("displayMessage").style.visibility = "hidden";
+    }
+    const myTimeout = setTimeout(getDisplayMessage, 3000);
+
     var displaycode = <%-JSON.stringify(displayData)%>;
     require.config({ paths: { 'vs': '/monaco-editor/min/vs' }});
     require(['vs/editor/editor.main'], function() {
