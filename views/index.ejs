@@ -17,10 +17,10 @@
         <tr>
             <% for(let i = 0; i < fileList.length; i++) { %>
             <td>
-                <a href="<%= fileList[i] %>"><%= fileList[i] %></a>
+                <a href="<%= fileList[i].replace(process.env.FILE_DIRECTORY,process.env.ROUTE_NAME) %>"><%= fileList[i].replace(process.env.FILE_DIRECTORY,process.env.ROUTE_NAME) %></a>
             </td>
             <td>
-                <a href="<%= fileList[i].replace(routename,navigateEdit) %>">Edit </a>
+                <a href="<%= fileList[i].replace(process.env.FILE_DIRECTORY,navigateEdit) %>">Edit </a>
             </td>
         </tr>    
         <% } %>
