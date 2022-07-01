@@ -1,0 +1,57 @@
+affinity: {}
+autoscaling:
+  enabled: false
+  maxReplicas: 100
+  minReplicas: 1
+  targetCPUUtilizationPercentage: 80
+environmentConfig:
+  configmap:
+    .env: |
+      ROUTE_NAME = public/frontend-assets
+      FILE_DIRECTORY = public/frontend-assets
+      USER = kalsym
+      PASSWORD = kalsym@123
+  volumeMount:
+    - mountPath: /app/.env
+      name: file-reader-vol
+      subPath: .env
+  volumes:
+    - configMap:
+        name: file-reader-cm
+      name: file-reader-vol
+fullnameOverride: ''
+image:
+  pullPolicy: Always
+  repository: kalsym/file-reader
+  tag: 1.0.2
+imagePullSecrets:
+  - name: kalsym-docker-hub
+ingress:
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: 'false'
+  className: ''
+  enabled: true
+  hosts:
+    - host: config.symplified.it
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - config.symplified.it
+      secretName: secret-tls-it
+nameOverride: ''
+nodeSelector: {}
+podAnnotations: {}
+podSecurityContext: {}
+replicaCount: 1
+resources: {}
+securityContext: {}
+service:
+  port: 3000
+  type: ClusterIP
+serviceAccount:
+  annotations: {}
+  create: false
+  name: ''
+tolerations: []
